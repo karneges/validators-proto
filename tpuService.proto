@@ -1,0 +1,29 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package tpuService;
+option go_package = "tpuService/tpuService";
+message GetTpuByCountry {
+  string country = 1;
+}
+message GetTopTpu {
+  uint64 top = 1;
+}
+message Validator {
+  string tpu = 1;
+}
+message Validators {
+  repeated Validator validators = 1;
+}
+message ValidatorsMapField {
+  uint64 key = 1;
+  Validator value = 2;
+}
+message ValidatorsMap {
+  repeated Validator map_field = 1;
+}
+
+service TpuService {
+  rpc getTpuByCountry(GetTpuByCountry) returns (Validators) {}
+  rpc getTopTpu(GetTopTpu) returns (Validators) {}
+  rpc getValidatorsMap(google.protobuf.Empty) returns (ValidatorsMap) {}
+}
