@@ -1,0 +1,43 @@
+syntax = "proto3";
+package collectionExtractorService;
+option go_package = "tpuService/collectionExtractorService";
+
+
+message NftEntity {
+  string Mint = 1;
+  float Rarity = 2;
+  repeated string Creators = 3;
+}
+
+message MarketAction {
+  string ActionType = 1;
+  optional string    EscrowAccount = 2;
+  optional uint64   Price = 3;
+  string Mint = 4;
+  string    Owner = 5;
+  string    TimeStamp = 6;
+}
+
+message GetCollectionRequest {
+  string GetCollectionID = 1;
+  string CmType = 2;
+  string RpcUrl =3;
+  bool isForce = 4;
+}
+message GetCollectionResponse {
+  repeated NftEntity nftEntities = 1;
+}
+message GetMarketDataRequest {
+  repeated string nfts = 1;
+  int64 chunkSize = 2;
+  string RpcUrl =3;
+}
+message GetMarketDataResponse {
+  repeated MarketAction marketActions = 1;
+}
+
+
+service CollectionExtractorService {
+  rpc GetCollection(GetCollectionRequest) returns (GetCollectionResponse) {}
+  rpc GetMarketData(GetMarketDataRequest) returns (GetMarketDataResponse) {}
+}
