@@ -15,7 +15,7 @@ message MarketAction {
   optional uint64   Price = 3;
   string Mint = 4;
   string    Owner = 5;
-  string    TimeStamp = 6;
+  uint64    TimeStamp = 6;
 }
 
 message GetCollectionRequest {
